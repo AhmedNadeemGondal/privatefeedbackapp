@@ -27,7 +27,7 @@ export async function GET(request: Request) {
     const queryParam = { username: searchParams.get("username") };
     // Validate with Zod
     const result = UsernameQuerySchema.safeParse(queryParam);
-    console.log(result); // TODO: remove
+    console.log("This message is from check-username-unique api route", result); // TODO: remove
 
     if (!result.success) {
       const usernameErrors = result.error.format().username?._errors || [];
@@ -61,7 +61,7 @@ export async function GET(request: Request) {
     return Response.json(
       {
         success: true,
-        message: "Username is unique,",
+        message: "Username is unique",
       },
       { status: 200 }
     );
