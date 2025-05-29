@@ -7,13 +7,17 @@ import { getToken } from "next-auth/jwt";
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const url = request.nextUrl;
-
+  console.log("from auth middleware", url.pathname);
+  if (url.pathname === "/" && token) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
   if (
     token &&
     (url.pathname.startsWith("/sign-in") ||
       url.pathname.startsWith("/sign-up") ||
-      url.pathname.startsWith("/verify") ||
-      url.pathname.startsWith("/"))
+      url.pathname.startsWith("/verify"))
+    // ||
+    // (url.pathname.startsWith("/"))
   ) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
