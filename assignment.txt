@@ -1,0 +1,4 @@
+Hit the two API
+
+1. hit post endpoint send-messages from the feedback url
+2. hit the suggest-messages api for ai suggestions and handle stream response

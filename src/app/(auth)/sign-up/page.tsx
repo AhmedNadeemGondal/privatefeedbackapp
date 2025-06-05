@@ -70,12 +70,8 @@ const Page = () => {
     try {
       const response = await axios.post<ApiResponse>("/api/sign-up", data);
       // TODO: Check the toasts, implementation might be different
-      toast("Success on submission", {
+      toast.success("Success on submission", {
         description: response.data.message,
-        // action: {
-        //   label: "Undo",
-        //   onClick: () => console.log("Undo"),
-        // },
       });
       router.replace(`/verify/${username}`);
       setIsSubmitting(false);
@@ -87,12 +83,8 @@ const Page = () => {
       );
       const errorMessage = axiosError.response?.data.message;
       // TODO: Check the toasts, implementation might be different
-      toast("Signup failed", {
+      toast.error("Signup failed", {
         description: errorMessage,
-        // action: {
-        //   label: "Undo",
-        //   onClick: () => console.log("Undo"),
-        // },
       });
       setIsSubmitting(false);
     }

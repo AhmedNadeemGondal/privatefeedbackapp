@@ -31,25 +31,25 @@ const Page = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-    console.log(data);
+    // console.log(data);
     const result = await signIn("credentials", {
       redirect: false,
       identifier: data.identifier,
       password: data.password,
     });
-    console.log(result);
+    // console.log(result);
     if (result?.error) {
       if (result.error == "CredentialsSignin") {
-        toast("Login Failed", {
+        toast.error("Login Failed", {
           description: "Incorrect username",
         });
       } else {
-        toast("Error", {
+        toast.error("Error", {
           description: result.error,
         });
       }
     }
-    console.log(result);
+    // console.log(result);
     if (result?.url) {
       router.replace("/dashboard");
     }

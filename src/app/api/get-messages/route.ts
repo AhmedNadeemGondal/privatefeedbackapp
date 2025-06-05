@@ -17,6 +17,12 @@ export async function GET(request: Request) {
   }
   const userId = new mongoose.Types.ObjectId(user._id);
   try {
+    const messageEmpty = await UserModel.findById(userId)
+      .where("messages")
+      .size(0);
+    if (messageEmpty) {
+      return ResponseWrapper(true, "There are no messages yet", 200);
+    }
     const user = await UserModel.aggregate([
       { $match: { id: userId } },
       { $unwind: "$messages" },
