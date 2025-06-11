@@ -55,7 +55,7 @@ export default function Chat() {
   const [answer, setAnswer] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  async function handleSubmit(e: FormEvent<HTMLButtonElement>) {
+  async function handleSubmitAI(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
     setIsLoading(true);
@@ -83,7 +83,7 @@ export default function Chat() {
           required
         /> */}
 
-      <button disabled={isLoading} type="submit" onClick={handleSubmit}>
+      <button disabled={isLoading} type="submit" onClick={handleSubmitAI}>
         Submit
       </button>
       {/* </form> */}
