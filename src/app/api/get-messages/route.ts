@@ -6,16 +6,17 @@ import { User } from "next-auth";
 import ResponseWrapper from "@/helpers/responseWrapper";
 import mongoose from "mongoose";
 
-export async function GET(request: Request) {
+export async function GET() {
   await dbConnect();
 
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
-
+  // console.log(user);
   if (!session || !session.user) {
     return ResponseWrapper(false, "Not authenticated", 401);
   }
   const userId = new mongoose.Types.ObjectId(user._id);
+  // console.log(userId);
   try {
     const messageEmpty = await UserModel.findById(userId)
       .where("messages")
@@ -23,16 +24,24 @@ export async function GET(request: Request) {
     if (messageEmpty) {
       return ResponseWrapper(true, "There are no messages yet", 200);
     }
-    const user = await UserModel.aggregate([
-      { $match: { id: userId } },
+    const messages = await UserModel.aggregate([
+      { $match: { _id: userId } }, // ← fix here
       { $unwind: "$messages" },
       { $sort: { "messages.createdAt": -1 } },
-      { $group: { _id: "$_id", messages: { $push: "$messages" } } },
+      { $replaceRoot: { newRoot: "$messages" } },
     ]);
-    if (!user || user.length === 0) {
-      return ResponseWrapper(false, "User not found", 401);
+    // console.log(messages);
+    // const user = await UserModel.find({ _id: userId });
+    // console.log(user);
+    if (!messages || messages.length === 0) {
+      return Response.json(
+        { messages },
+        {
+          status: 200,
+        }
+      );
     }
-    return ResponseWrapper(true, { message: user[0].messages }, 201);
+    return ResponseWrapper(true, { message: messages }, 201);
   } catch (error) {
     console.log("An unexpected error occoured", error);
     // TODO: check response if needed

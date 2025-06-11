@@ -19,7 +19,7 @@ const Home = () => {
       <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12">
         <section className="text-center mb-8 md:mb-12">
           <h1 className="text-3xl md:text-5xl font-bold">
-            Looking forward to your ananymous feedback
+            Looking forward to your anonymous feedback
           </h1>
           <p>Feel free to share your thoughts with complete privacy</p>
         </section>

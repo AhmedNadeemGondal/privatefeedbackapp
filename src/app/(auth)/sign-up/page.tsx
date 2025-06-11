@@ -69,7 +69,6 @@ const Page = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.post<ApiResponse>("/api/sign-up", data);
-      // TODO: Check the toasts, implementation might be different
       toast.success("Success on submission", {
         description: response.data.message,
       });
@@ -82,7 +81,6 @@ const Page = () => {
         axiosError.response?.data.message ?? "Error checking username"
       );
       const errorMessage = axiosError.response?.data.message;
-      // TODO: Check the toasts, implementation might be different
       toast.error("Signup failed", {
         description: errorMessage,
       });
@@ -90,13 +88,13 @@ const Page = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen  bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Join our feedback
           </h1>
-          <p className="mb-4">Signup to get ananymous feedback</p>
+          <p className="mb-4">Signup to get anonymous feedback</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -154,15 +152,17 @@ const Page = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
-                </>
-              ) : (
-                "Signup"
-              )}
-            </Button>
+            <div className="w-full flex justify-center">
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                  </>
+                ) : (
+                  "Signup"
+                )}
+              </Button>
+            </div>
           </form>
         </Form>
         <div className="text-center m-4">

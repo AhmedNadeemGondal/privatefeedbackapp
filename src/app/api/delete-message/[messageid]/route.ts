@@ -11,6 +11,7 @@ export async function GET(
   { params }: { params: { messageId: string } }
 ) {
   const messageId = params.messageId;
+  console.log("This does print", messageId);
   await dbConnect();
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;

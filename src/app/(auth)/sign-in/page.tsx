@@ -61,7 +61,7 @@ const Page = () => {
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Join our feedback
           </h1>
-          <p className="mb-4">Sign In to get ananymous feedback</p>
+          <p className="mb-4">Sign In to get anonymous feedback</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -91,13 +91,15 @@ const Page = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Signin</Button>
+            <div className="w-full flex justify-center">
+              <Button type="submit">Signin</Button>
+            </div>
           </form>
         </Form>
         <div className="text-center m-4">
-          <p>Already a member? </p>
-          <Link href={"/sign-in"} className="text-blue-600 hover:text-blue-800">
-            Sign in
+          <p>Not a member? </p>
+          <Link href={"/sign-up"} className="text-blue-600 hover:text-blue-800">
+            Sign up
           </Link>
         </div>
       </div>

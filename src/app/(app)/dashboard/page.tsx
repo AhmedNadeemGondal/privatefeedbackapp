@@ -43,8 +43,7 @@ const Page = () => {
       const response = await axios.get<ApiResponse>("/api/accept-messages");
       setValue("acceptMessages", response.data.message.message);
       // TODO: Check response structure
-      console.log(response.data);
-      console.log("Lets see");
+      // console.log(response.data);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast("Error", {
@@ -63,19 +62,27 @@ const Page = () => {
       setIsSwitchLoading(false);
       try {
         const response = await axios.get<ApiResponse>("/api/get-messages");
-        setMessages(response.data.messages || []);
+
+        const { message } = response.data;
+        if (typeof message === "string") {
+          toast("Refreshed messages", { description: message });
+          setMessages([]);
+        } else {
+          // console.log(message.message);
+          setMessages(message.message || []);
+        }
         if (response.data.message === "There are no messages yet") {
           toast("Refreshed messages", {
             description: response.data.message,
           });
         }
-
         if (refresh) {
           toast("Refreshed messages", {
             description: "Showing latest messages",
           });
         }
       } catch (error) {
+        // console.log(error);
         const axiosError = error as AxiosError<ApiResponse>;
         toast("Error", {
           description:
@@ -175,7 +182,7 @@ const Page = () => {
       </Button>
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
-          messages.map((message, index) => (
+          messages.map((message) => (
             <MessageCard
               key={message._id as string}
               message={message}
