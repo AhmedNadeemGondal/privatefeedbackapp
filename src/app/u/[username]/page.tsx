@@ -125,6 +125,7 @@ const Page = () => {
 
   const handSuggestClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    // @ts-expect-error-cannot find appropiate type
     const value = e.target.textContent;
     setValue("content", value);
   };

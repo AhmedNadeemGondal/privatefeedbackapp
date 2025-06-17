@@ -41,6 +41,7 @@ const Page = () => {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>("/api/accept-messages");
+      // @ts-expect-error-message structure is adhoc from backend
       setValue("acceptMessages", response.data.message.message);
       // TODO: Check response structure
       // console.log(response.data);
@@ -69,6 +70,7 @@ const Page = () => {
           setMessages([]);
         } else {
           // console.log(message.message);
+          // @ts-expect-error-message structure is adhoc from backend
           setMessages(message.message || []);
         }
         if (response.data.message === "There are no messages yet") {
@@ -111,6 +113,7 @@ const Page = () => {
       });
       setValue("acceptMessages", !acceptMessages);
       // console.log(response.data.message);
+      // @ts-expect-error-message structure is adhoc from backend
       toast(response.data.message.message || "This toast did not work");
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
