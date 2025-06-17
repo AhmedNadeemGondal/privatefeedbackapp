@@ -5,10 +5,9 @@ import UserModel from "@/model/User";
 import { User } from "next-auth";
 import ResponseWrapper from "@/helpers/responseWrapper";
 
-export async function GET(
-  request: Request,
-  context: { params: { messageid: string } }
-) {
+type Params = Promise<{ messageid: string }>;
+
+export async function GET(request: Request, context: { params: Params }) {
   const { messageid } = await context.params;
 
   // console.log("This does print", messageid);
