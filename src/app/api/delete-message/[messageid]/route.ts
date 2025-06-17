@@ -7,10 +7,10 @@ import ResponseWrapper from "@/helpers/responseWrapper";
 
 export async function GET(
   request: Request,
-  { params }: { params: { messageId: string } }
+  { params }: { params: { messageid: string } }
 ) {
-  const messageId = params.messageId;
-  console.log("This does print", messageId);
+  const messageId = params.messageid;
+  // console.log("This does print", messageId);
   await dbConnect();
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
