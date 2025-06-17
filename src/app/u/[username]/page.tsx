@@ -28,13 +28,13 @@ const Page = () => {
   // Together AI Data Stream states
   // const [suggestCount, setSuggestCount] = useState(0);
   const [answer1, setAnswer1] = useState(
-    "This is just a placeholder question..."
+    "This is just a placeholder for AI generated suggestions..."
   );
   const [answer2, setAnswer2] = useState(
-    "This is just a placeholder question..."
+    "This is just a placeholder for AI generated suggestions..."
   );
   const [answer3, setAnswer3] = useState(
-    "This is just a placeholder question..."
+    "This is just a placeholder for AI generated suggestions..."
   );
   const [isLoading, setIsLoading] = useState(false);
   //
@@ -115,6 +115,7 @@ const Page = () => {
         description: errorMessage,
       });
     } finally {
+      form.reset();
       setIsSubmitting(false);
     }
   };

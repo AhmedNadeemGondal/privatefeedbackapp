@@ -33,16 +33,16 @@ type MessageCardProps = {
 
 const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
   const handleDeleteConfirm = async () => {
-    // console.log(message._id);
+    console.log(message._id);
     const response = await axios.get<ApiResponse>(
       `/api/delete-message/${message._id}`
     );
     // console.log(response);
     // TODO: Check data passed to the toast
-    toast(response.data.success, {
-      description: response.data.message,
+    toast.info(response.data.message, {
+      description: message.content,
     });
-    onMessageDelete(message._id);
+    onMessageDelete(message._id as string);
   };
   return (
     <Card>
@@ -52,7 +52,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
           <AlertDialog>
             <AlertDialogTrigger asChild>
               {/* <div className="w-2"> */}
-              <Button variant="destructive">
+              <Button variant="destructive" className="cursor-pointer">
                 <X className=" h-5" />
               </Button>
               {/* </div> */}

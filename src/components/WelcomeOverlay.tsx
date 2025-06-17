@@ -5,18 +5,18 @@ const Overlay: React.FC = ({ onClose }) => {
   return (
     // Outer div for the full-screen overlay
     <div
-      className="fixed inset-0 bg-black/20 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/20 flex mb:items-center-safe items-center justify-center z-50 w-full"
       onClick={onClose}
     >
-      <div className="relative bg-white p-6 sm:p-10 mb-32 rounded-xl shadow-2xl text-center max-w-md w-full text-gray-800">
+      <div className="relative bg-white mb:mt-20 mt-10 py-4 px-2 mx-4  lg:mb-32 rounded-xl shadow-2xl text-center max-w-md w-full text-gray-800">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-2xl text-gray-500 hover:text-gray-900 font-semibold"
+          className="absolute mb:top-3 mb:right-3 top-0.5 right-2 text-2xl text-gray-500 hover:text-gray-900 font-semibold"
           aria-label="Close overlay"
         >
           &times;
         </button>
-        <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">
+        <h2 className="text-2xl sm:text-4xl font-extrabold mb-4 leading-tight">
           Welcome to <br />
           <span className="text-indigo-600">Private Feedback</span>
         </h2>

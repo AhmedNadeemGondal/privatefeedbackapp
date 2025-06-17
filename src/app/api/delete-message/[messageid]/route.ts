@@ -7,10 +7,11 @@ import ResponseWrapper from "@/helpers/responseWrapper";
 
 export async function GET(
   request: Request,
-  { params }: { params: { messageid: string } }
+  context: { params: { messageid: string } }
 ) {
-  const messageId = params.messageid;
-  // console.log("This does print", messageId);
+  const { messageid } = await context.params;
+
+  // console.log("This does print", messageid);
   await dbConnect();
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
@@ -23,11 +24,12 @@ export async function GET(
       {
         _id: user._id,
       },
-      { $pull: { messages: { _id: messageId } } }
+      { $pull: { messages: { _id: messageid } } }
     );
     if (updatedResult.modifiedCount === 0) {
       return ResponseWrapper(false, "Message not found/already deleted", 404);
     }
+    // console.log("If you see this message, you are doing okay");
     return ResponseWrapper(true, "Message Deleted", 200);
   } catch (error) {
     console.log("Dump Error: ", error);
