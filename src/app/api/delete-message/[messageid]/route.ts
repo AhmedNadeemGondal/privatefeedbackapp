@@ -4,7 +4,6 @@ import dbConnect from "@/lib/dbconnect";
 import UserModel from "@/model/User";
 import { User } from "next-auth";
 import ResponseWrapper from "@/helpers/responseWrapper";
-import mongoose from "mongoose";
 
 export async function GET(
   request: Request,

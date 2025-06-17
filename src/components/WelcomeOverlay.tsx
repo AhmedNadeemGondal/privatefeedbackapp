@@ -1,10 +1,6 @@
 // components/Overlay.tsx
 import React from "react";
 
-interface OverlayProps {
-  onClose: () => void;
-}
-
 const Overlay: React.FC = ({ onClose }) => {
   return (
     // Outer div for the full-screen overlay
