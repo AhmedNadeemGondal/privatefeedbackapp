@@ -12,11 +12,13 @@ export async function POST(request: Request) {
 
   try {
     const { username, code } = await request.json();
-
-    // const decodedUsername = decodeURIComponent(username); //This is just for info not valid for the current implementation
-
-    const usernameSchemaChecked = UsernameQuerySchema.safeParse({ username });
-    console.log(usernameSchemaChecked);
+    const decodedUsername = decodeURIComponent(username);
+    // console.log("0: ", decodedUsername);
+    // const decodedUsername = decodeURIComponent(username); //This fiix is used above
+    const usernameSchemaChecked = UsernameQuerySchema.safeParse({
+      username: decodedUsername,
+    });
+    // console.log("1: ", usernameSchemaChecked.error?.issues);
     if (!usernameSchemaChecked.success) {
       return Response.json(
         {
@@ -26,7 +28,7 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    console.log(usernameSchemaChecked);
+    // console.log("2: ", usernameSchemaChecked);
     const user = await UserModel.findOne({
       username: usernameSchemaChecked.data.username,
     });
@@ -39,8 +41,9 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+    console.log(user);
     const isCodeValid = user.verifyCode === code;
-    console.log(user.verifyCode, code, isCodeValid);
+    // console.log("3: ", user.verifyCode, code, isCodeValid);
     const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date();
 
     if (isCodeValid && isCodeNotExpired) {

@@ -8,10 +8,11 @@ export async function POST(request: Request) {
   await dbConnect();
 
   const { username, content } = await request.json();
-  console.log(username, content);
+  const decodedUsername = decodeURIComponent(username);
+  console.log(decodedUsername, content);
 
   try {
-    const user = await UserModel.findOne({ username });
+    const user = await UserModel.findOne({ username: decodedUsername });
     if (!user) {
       return ResponseWrapper(false, "User not found", 404);
     }
